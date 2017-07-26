@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Voting from './components/Voting';
 
 export default class App extends React.Component {
+  var pair = ['Sushi', 'Italian'];
+
   render() {
     return (
       <View style={styles.container}>
-        <Text>Hello World!</Text>
+        <Voting pair={pair}/>
       </View>
     );
   }
