@@ -6,7 +6,7 @@ import {
   View,
   TouchableOpacity
 } from 'react-native';
-import OAuthsimple from 'oauthsimple';
+import OAuthSimple from 'oauthsimple';
 
 
 export default class RestaurantLookup extends Component {
@@ -25,6 +25,25 @@ export default class RestaurantLookup extends Component {
   };
 
   fetchData(){
+    const lat = this.state.position.coords.latitude;
+    const lng = this.state.position.coords.longitude;
+    const latlng = "ll=" + String(lat) + "," + String(lng);
+    const oauth = new OAuthSimple(consumerKey, tokenSecret)
+    const request = oauth.sign({
+      action: "GET",
+      path: "https://api.yelp.com/v2/search",
+      parameters: "term=sushi&" + latlng,
+      signitures: {api_key: consumerKey, shared_secret: consumerSecret, access_token:token,
+      access_secret: tokenSecret},
+
+    })
+    fetch(request.signed_url, {method: "GET"}).then(function(response){
+      return response.json()
+    }).then(function(data){
+debugger
+    }).catch(function(error){
+      console.log("Error:", error)
+    })
 
   };
 
