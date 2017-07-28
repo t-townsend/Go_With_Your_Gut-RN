@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity
-} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import OAuthSimple from 'oauthsimple';
 
 
-export default class RestaurantLookup extends Component {
+export default class Search extends Component {
   state = {
     position: 'unknown'
   };
@@ -20,7 +14,7 @@ export default class RestaurantLookup extends Component {
         this.setState({position});
       },
       (error) => alert(error),
-      {enableHighAccuracy: true, timeout: 20000, maximumAge:1000}
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     )
   };
 
@@ -36,7 +30,7 @@ export default class RestaurantLookup extends Component {
     var tokenSecret = "***"
 
     var token = "***"
-    
+
     const oauth = new OAuthSimple(consumerKey, tokenSecret)
     const request = oauth.sign({
       action: "GET",
@@ -46,10 +40,15 @@ export default class RestaurantLookup extends Component {
       access_secret: tokenSecret},
 
     })
+    const nav = this.props.navigator;
+
     fetch(request.signed_url, {method: "GET"}).then(function(response){
       return response.json()
     }).then(function(data){
-debugger
+      nave.push({
+        ident: "Results",
+        data: data
+      })
     }).catch(function(error){
       console.log("Error:", error)
     })
@@ -93,4 +92,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('RestaurantLookup', () => RestaurantLookup);
+module.exports = Search
