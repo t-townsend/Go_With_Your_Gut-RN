@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import OAuthSimple from 'oauthsimple';
+import { CONSUMER_KEY, CONSUMER_SECRET, TOKEN, TOKEN_SECRET } from 'react-native-dotenv';
+
 
 
 export default class Search extends Component {
@@ -23,13 +25,13 @@ export default class Search extends Component {
     const lng = this.state.position.coords.longitude;
     const latlng = "ll=" + String(lat) + "," + String(lng);
 
-    var consumerKey = "***"
+    var consumerKey = ApiClient.init(CONSUMER_KEY);
 
-    var consumerSecret = "***"
+    var consumerSecret = ApiClient.init(CONSUMER_SECRET);
 
-    var tokenSecret = "***"
+    var tokenSecret = ApiClient.init(TOKEN_SECRET);
 
-    var token = "***"
+    var token = ApiClient.init(TOKEN);
 
     const oauth = new OAuthSimple(consumerKey, tokenSecret)
     const request = oauth.sign({
